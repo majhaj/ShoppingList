@@ -1,6 +1,6 @@
-﻿using ShoppingList.Entities;
+﻿using Data.Entities;
 
-namespace ShoppingList.Models
+namespace Data.Models
 {
     public class CreateListDto
     {

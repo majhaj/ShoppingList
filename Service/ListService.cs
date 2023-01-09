@@ -1,19 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using ShoppingList.DbConfiguration;
-using ShoppingList.Entities;
-using ShoppingList.Models;
+using Data.Entities;
+using Data.Models;
+using Repository.DbConfiguration;
 
-namespace ShoppingList.Services
+namespace Service
 {
-    public interface IListService
-    {
-        int Create(CreateListDto dto);
-        void Delete(int id);
-        void AddProductToList(string productName, int id);
-        ProductsListDto GetById(int id);
-    }
-
     public class ListService : IListService
     {
         private readonly ShoppingListDbContext _dbContext;

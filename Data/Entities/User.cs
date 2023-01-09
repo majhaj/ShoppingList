@@ -1,4 +1,4 @@
-﻿namespace ShoppingList.Entities
+﻿namespace Data.Entities
 {
     public class User
     {

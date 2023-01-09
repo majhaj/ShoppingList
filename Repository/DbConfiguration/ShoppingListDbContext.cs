@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShoppingList.Entities;
+using Data.Entities;
 
-namespace ShoppingList.DbConfiguration
+namespace Repository.DbConfiguration
 {
     public class ShoppingListDbContext : DbContext
     {
@@ -28,13 +28,13 @@ namespace ShoppingList.DbConfiguration
                 pe.HasOne(x => x.Creator)
                 .WithMany(y => y.AllShoppingLists)
                 .HasForeignKey(x => x.CreatorId);
-            }); 
+            });
 
             modelBuilder.Entity<Product>(pe =>
             {
                 pe.Property(p => p.Name).IsRequired().HasMaxLength(30);
                 pe.Property(p => p.CategoryId).IsRequired();
-                
+
                 pe.HasOne(x => x.Category)
                 .WithMany(y => y.Products)
                 .HasForeignKey(x => x.CategoryId);

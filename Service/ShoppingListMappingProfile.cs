@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ShoppingList.Entities;
-using ShoppingList.Models;
+using Data.Entities;
+using Data.Models;
 
 namespace ShoppingList
 {

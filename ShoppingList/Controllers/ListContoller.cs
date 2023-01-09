@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ShoppingList.Models;
-using ShoppingList.Services;
+﻿using Data.Models;
+using Microsoft.AspNetCore.Mvc;
+using Service;
+
 
 namespace ShoppingList.Controllers
 {

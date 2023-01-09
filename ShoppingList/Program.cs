@@ -1,5 +1,5 @@
-using ShoppingList.DbConfiguration;
-using ShoppingList.Services;
+using Repository.DbConfiguration;
+using Service;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

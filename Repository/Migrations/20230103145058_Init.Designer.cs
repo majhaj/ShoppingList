@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ShoppingList.DbConfiguration;
+using Repository.DbConfiguration;
 
 #nullable disable
 
-namespace ShoppingList.Migrations
+namespace Repository.Migrations
 {
     [DbContext(typeof(ShoppingListDbContext))]
     [Migration("20230103145058_Init")]
