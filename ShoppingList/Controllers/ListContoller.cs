@@ -17,21 +17,21 @@ namespace ShoppingList.Controllers
         }
 
         [HttpGet]
-        ActionResult<ProductsListDto> GetById([FromRoute] int id)
+        public ActionResult<ProductsListDto> GetById([FromRoute] int id)
         {
             var list = _listService.GetById(id);
             return Ok(list);
         }
 
         [HttpPost]
-        ActionResult CreateList([FromBody]CreateListDto dto)
+        public ActionResult CreateList([FromBody]CreateListDto dto)
         {
             var id = _listService.Create(dto);
             return Created($"api/list/{id}", null);
         }
 
         [HttpDelete("{id}")]
-        ActionResult DeleteList([FromRoute]int id)
+        public ActionResult DeleteList([FromRoute]int id)
         {
             _listService.Delete(id);
 
@@ -39,14 +39,14 @@ namespace ShoppingList.Controllers
         }
 
         [HttpPost("{id}")]
-        ActionResult AddProductToList([FromBody]string product, [FromRoute]int id)
+        public ActionResult AddProductToList([FromBody]string product, [FromRoute]int id)
         {
             _listService.AddProductToList(product, id);
             return Ok(product);
         }
 
-        [HttpDelete("{id}")]
-        ActionResult DeleteProduct([FromBody]string product, [FromRoute]int id)
+        [HttpDelete("/deleteproduct/{id}")]
+        public ActionResult DeleteProduct([FromBody]string product, [FromRoute]int id)
         {
             _listService.DeleteProduct(product, id);
             return NoContent();

@@ -2,7 +2,7 @@
 using Data.Entities;
 using Data.Models;
 
-namespace ShoppingList
+namespace Service
 {
     public class ShoppingListMappingProfile : Profile
     {
