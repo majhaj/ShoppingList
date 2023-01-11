@@ -10,6 +10,7 @@ namespace ShoppingList
         {
             CreateMap<CreateListDto, ProductsList>();
             CreateMap<ProductsList, ProductsListDto>();
+            CreateMap<ProductDto, Product>();
         }
     }
 }

@@ -62,6 +62,23 @@ namespace Service
 
         }
 
+        public void DeleteProduct(string productName, int id)
+        {
+            var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == id).Products;
+            if(list ==null)
+            {
+                throw new Exception();
+            }
+
+            var item = list.FirstOrDefault(x => x.Name == productName);
+            if(item == null)
+            {
+                throw new Exception();
+            }
+
+            list.Remove(item);
+        }
+
         public ProductsListDto GetById(int id)
         {
             var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == id);

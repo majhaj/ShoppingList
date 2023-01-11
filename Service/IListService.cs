@@ -13,5 +13,6 @@ namespace Service
         void Delete(int id);
         void AddProductToList(string productName, int id);
         ProductsListDto GetById(int id);
+        void DeleteProduct(string productName, int id);
     }
 }

@@ -44,5 +44,12 @@ namespace ShoppingList.Controllers
             _listService.AddProductToList(product, id);
             return Ok(product);
         }
+
+        [HttpDelete("{id}")]
+        ActionResult DeleteProduct([FromBody]string product, [FromRoute]int id)
+        {
+            _listService.DeleteProduct(product, id);
+            return NoContent();
+        }
     }
 }
