@@ -2,7 +2,7 @@
 using Data.Entities;
 using Data.Models;
 
-namespace Service
+namespace ShoppingList
 {
     public class ShoppingListMappingProfile : Profile
     {
@@ -11,6 +11,8 @@ namespace Service
             CreateMap<CreateListDto, ProductsList>();
             CreateMap<ProductsList, ProductsListDto>();
             CreateMap<ProductDto, Product>();
+            CreateMap<UserDto, User>();
+            CreateMap<User, UserDto>();
         }
     }
 }

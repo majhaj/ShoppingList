@@ -10,7 +10,6 @@ namespace Repository.DbConfiguration
         public DbSet<User> Users { get; set; }
         public DbSet<ProductsList> ProductsLists { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,21 +27,29 @@ namespace Repository.DbConfiguration
                 pe.HasOne(x => x.Creator)
                 .WithMany(y => y.AllShoppingLists)
                 .HasForeignKey(x => x.CreatorId);
+
+                pe.HasMany(x => x.Products)
+                    .WithMany(y => y.ProductsLists)
+                    .UsingEntity<ProductsListProducts>(
+                        x => x.HasOne(plp => plp.Product)
+                            .WithMany()
+                            .HasForeignKey(plp => plp.ProductId),
+                        y => y.HasOne(plp => plp.ProductsList)
+                            .WithMany()
+                            .HasForeignKey(plp => plp.ProductsListId),
+                        plp => plp.HasKey(x => new { x.ProductId, x.ProductsListId })
+                    ) ;
             });
 
             modelBuilder.Entity<Product>(pe =>
             {
                 pe.Property(p => p.Name).IsRequired().HasMaxLength(30);
-                pe.Property(p => p.CategoryId).IsRequired();
 
-                pe.HasOne(x => x.Category)
-                .WithMany(y => y.Products)
-                .HasForeignKey(x => x.CategoryId);
+                pe.HasOne(p => p.Creator)
+                    .WithMany(p => p.History)
+                    .HasForeignKey(p => p.CreatorId);
 
             });
-
-            modelBuilder.Entity<Category>()
-                .Property(c => c.Name).IsRequired().HasMaxLength(30);
 
         }
 

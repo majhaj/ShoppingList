@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Data.Entities;
 using Data.Models;
 using Repository.DbConfiguration;
+using System.Linq.Expressions;
 
 namespace Service
 {
@@ -10,16 +11,22 @@ namespace Service
     {
         private readonly ShoppingListDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly IUserContextService _userContextService;
 
-        public ListService(ShoppingListDbContext dbContext, IMapper mapper)
+        public ListService(ShoppingListDbContext dbContext, IMapper mapper, IUserContextService userContextService)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _userContextService = userContextService;
         }
 
         public int Create(CreateListDto dto)
         {
             var list = _mapper.Map<ProductsList>(dto);
+            //list.CreatorId = _userContextService.GetUserId;
+
+            //var history = _dbContext.Users.FirstOrDefault(x => x.Id == list.CreatorId).History;
+
             _dbContext.Add(list);
 
             _dbContext.SaveChanges();
@@ -37,46 +44,37 @@ namespace Service
             _dbContext.SaveChanges();
         }
 
-        public void AddProductToList(string productName, int id)
+        public void AddProductToList(ProductDto dto, int listId)
         {
-            var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == id).Products;
-
-            if (list == null)
+            var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == listId);
+            if(list == null)
             {
                 throw new Exception();
             }
 
-            var product = _dbContext.Products.FirstOrDefault(x => x.Name == productName);
+            var product = _mapper.Map<Product>(dto);
 
-            if(product == null)
-            {
-                product = new Product
-                {
-                    Name = productName,
-                };
-            }
-
-            list.Add(product);
+            list.Products.Add(product);
             
             _dbContext.SaveChanges();
 
         }
 
-        public void DeleteProduct(string productName, int id)
+        public void DeleteProduct(int productId, int listId)
         {
-            var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == id).Products;
+            var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == listId);
             if(list ==null)
             {
                 throw new Exception();
             }
 
-            var item = list.FirstOrDefault(x => x.Name == productName);
+            var item = list.Products.FirstOrDefault(x => x.Id == productId);
             if(item == null)
             {
                 throw new Exception();
             }
 
-            list.Remove(item);
+            list.Products.Remove(item);
         }
 
         public ProductsListDto GetById(int id)

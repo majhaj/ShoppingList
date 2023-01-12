@@ -22,13 +22,19 @@ namespace Repository.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ShoppingList.Entities.Category", b =>
+            modelBuilder.Entity("Data.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -37,41 +43,12 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("ShoppingList.Entities.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Kcal")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<int?>("ProductsListId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProductsListId");
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("ShoppingList.Entities.ProductsList", b =>
+            modelBuilder.Entity("Data.Entities.ProductsList", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,7 +56,7 @@ namespace Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CreatorId")
+                    b.Property<int?>("CreatorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -94,7 +71,22 @@ namespace Repository.Migrations
                     b.ToTable("ProductsLists");
                 });
 
-            modelBuilder.Entity("ShoppingList.Entities.User", b =>
+            modelBuilder.Entity("Data.Entities.ProductsListProducts", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsListId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "ProductsListId");
+
+                    b.HasIndex("ProductsListId");
+
+                    b.ToTable("ProductsListProducts");
+                });
+
+            modelBuilder.Entity("Data.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -124,25 +116,10 @@ namespace Repository.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ShoppingList.Entities.Product", b =>
+            modelBuilder.Entity("Data.Entities.Product", b =>
                 {
-                    b.HasOne("ShoppingList.Entities.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ShoppingList.Entities.ProductsList", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ProductsListId");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("ShoppingList.Entities.ProductsList", b =>
-                {
-                    b.HasOne("ShoppingList.Entities.User", "Creator")
-                        .WithMany("AllShoppingLists")
+                    b.HasOne("Data.Entities.User", "Creator")
+                        .WithMany("History")
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -150,19 +127,39 @@ namespace Repository.Migrations
                     b.Navigation("Creator");
                 });
 
-            modelBuilder.Entity("ShoppingList.Entities.Category", b =>
+            modelBuilder.Entity("Data.Entities.ProductsList", b =>
                 {
-                    b.Navigation("Products");
+                    b.HasOne("Data.Entities.User", "Creator")
+                        .WithMany("AllShoppingLists")
+                        .HasForeignKey("CreatorId");
+
+                    b.Navigation("Creator");
                 });
 
-            modelBuilder.Entity("ShoppingList.Entities.ProductsList", b =>
+            modelBuilder.Entity("Data.Entities.ProductsListProducts", b =>
                 {
-                    b.Navigation("Products");
+                    b.HasOne("Data.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.Entities.ProductsList", "ProductsList")
+                        .WithMany()
+                        .HasForeignKey("ProductsListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ProductsList");
                 });
 
-            modelBuilder.Entity("ShoppingList.Entities.User", b =>
+            modelBuilder.Entity("Data.Entities.User", b =>
                 {
                     b.Navigation("AllShoppingLists");
+
+                    b.Navigation("History");
                 });
 #pragma warning restore 612, 618
         }

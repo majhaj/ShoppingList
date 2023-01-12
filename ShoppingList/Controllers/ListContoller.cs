@@ -30,25 +30,25 @@ namespace ShoppingList.Controllers
             return Created($"api/list/{id}", null);
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult DeleteList([FromRoute]int id)
+        [HttpDelete("{listId}")]
+        public ActionResult DeleteList([FromRoute]int listId)
         {
-            _listService.Delete(id);
+            _listService.Delete(listId);
 
             return NoContent();
         }
 
-        [HttpPost("{id}")]
-        public ActionResult AddProductToList([FromBody]string product, [FromRoute]int id)
+        [HttpPost("{listId}")]
+        public ActionResult AddProductToList([FromBody]ProductDto dto, [FromRoute]int listId)
         {
-            _listService.AddProductToList(product, id);
-            return Ok(product);
+            _listService.AddProductToList(dto, listId);
+            return Ok();
         }
 
-        [HttpDelete("/deleteproduct/{id}")]
-        public ActionResult DeleteProduct([FromBody]string product, [FromRoute]int id)
+        [HttpDelete("/{listId}/{productId}")]
+        public ActionResult DeleteProduct([FromRoute]int listId, [FromRoute] int productId)
         {
-            _listService.DeleteProduct(product, id);
+            _listService.DeleteProduct(listId, productId);
             return NoContent();
         }
     }

@@ -9,6 +9,9 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ShoppingListDbContext>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<IListService, ListService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserContextService, UserContextService>();
+builder.Services.AddHttpContextAccessor();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddMvc();
