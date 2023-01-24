@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Data.Entities;
 using Data.Models;
-using Repository.DbConfiguration;
 using System.Linq.Expressions;
+using Repository;
 
 namespace Service
 {
@@ -22,12 +22,12 @@ namespace Service
 
         public int Create(CreateListDto dto)
         {
-            var list = _mapper.Map<ProductsList>(dto);
+            var list = _mapper.Map<ShoppingList>(dto);
             //list.CreatorId = _userContextService.GetUserId;
 
             //var history = _dbContext.Users.FirstOrDefault(x => x.Id == list.CreatorId).History;
 
-            _dbContext.Add(list);
+            _dbContext.ProductsLists.Add(list);
 
             _dbContext.SaveChanges();
 
@@ -38,6 +38,10 @@ namespace Service
         public void Delete(int id)
         {
             var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == id);
+            if(list == null)
+            {
+                throw new Exception();
+            }
 
             _dbContext.ProductsLists.Remove(list);
 
@@ -77,7 +81,7 @@ namespace Service
             list.Products.Remove(item);
         }
 
-        public ProductsListDto GetById(int id)
+        public ShoppingListDto GetById(int id)
         {
             var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == id);
             if(list == null)
@@ -85,7 +89,7 @@ namespace Service
                 throw new Exception();
             }
 
-            var result = _mapper.Map<ProductsListDto>(list);
+            var result = _mapper.Map<ShoppingListDto>(list);
             return result;
         }
     }
