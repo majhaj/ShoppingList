@@ -10,6 +10,6 @@ namespace Data.Entities
         public User Creator { get; set; }
         public int CreatorId { get; set; }
 
-        public List<ProductsList> ProductsLists { get; set; }
+        public List<ShoppingList> ShoppingLists { get; set; }
     }
 }

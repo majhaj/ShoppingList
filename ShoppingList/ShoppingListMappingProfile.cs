@@ -2,14 +2,14 @@
 using Data.Entities;
 using Data.Models;
 
-namespace ShoppingList
+namespace Web
 {
     public class ShoppingListMappingProfile : Profile
     {
         public ShoppingListMappingProfile()
         {
-            CreateMap<CreateListDto, ProductsList>();
-            CreateMap<ProductsList, ProductsListDto>();
+            CreateMap<CreateListDto, ShoppingList>();
+            CreateMap<ShoppingList, ShoppingListDto>();
             CreateMap<ProductDto, Product>();
             CreateMap<UserDto, User>();
             CreateMap<User, UserDto>();

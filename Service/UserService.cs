@@ -2,7 +2,7 @@
 using Data.Entities;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Repository.DbConfiguration;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Service;
 
 
-namespace ShoppingList.Controllers
+namespace Web.Controllers
 {
     [ApiController]
     [Route("api/list/")]
@@ -17,7 +17,7 @@ namespace ShoppingList.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ProductsListDto> GetById([FromRoute] int id)
+        public ActionResult<ShoppingListDto> GetById([FromRoute] int id)
         {
             var list = _listService.GetById(id);
             return Ok(list);
