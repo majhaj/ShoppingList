@@ -7,6 +7,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public List<Product> Products => _products;
-        public List<UserShoppingList> Users { get; set; }
+        public int CreatorId { get; set; }
+        public List<User> Users { get; set; }
     }
 }

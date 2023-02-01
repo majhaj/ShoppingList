@@ -19,9 +19,6 @@ namespace Repository.Configuration
 
             builder.HasMany(x => x.Products);
 
-            builder.HasMany(x => x.Users)
-                .WithOne();
-
         }
     }
 }
