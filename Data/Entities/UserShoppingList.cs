@@ -10,7 +10,9 @@ namespace Data.Entities
     public class UserShoppingList
     {
         public User User { get; set; }
+        public int UserId { get; set; }
         public ShoppingList ShoppingList { get; set; }
+        public int ShoppingListId { get; set; }
 
     }
 }

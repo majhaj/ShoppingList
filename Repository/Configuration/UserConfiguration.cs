@@ -19,7 +19,21 @@ namespace Repository.Configuration
             builder.Property(u => u.Birthday).IsRequired();
             builder.Property(u => u.Email).IsRequired();
 
-            builder.HasMany(u => u.ShoppingLists);
+            builder.HasMany(x => x.ShoppingLists)
+                .WithMany(y => y.Users)
+                .UsingEntity<UserShoppingList>(
+                    x => x.HasOne(y => y.ShoppingList)
+                        .WithMany()
+                        .HasForeignKey(y => y.ShoppingListId),
+                    x => x.HasOne(y => y.User)
+                        .WithMany()
+                        .HasForeignKey(y => y.UserId),
+                    y =>
+                    {
+                        y.HasKey(x => new { x.UserId, x.ShoppingListId });
+                    }
+                );
+
         }
     }
 }

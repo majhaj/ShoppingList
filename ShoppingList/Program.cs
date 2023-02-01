@@ -22,6 +22,8 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
+app.UseHttpsRedirection();
+
 app.UseSwagger();
 app.UseSwaggerUI(c => 
 { 
@@ -30,7 +32,7 @@ app.UseSwaggerUI(c =>
 
 app.UseRouting();
 
-app.UseHttpsRedirection();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {

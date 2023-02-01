@@ -16,7 +16,7 @@ namespace Web.Controllers
             _listService = listService;
         }
 
-        [HttpGet]
+        [HttpGet("/{id}")]
         public ActionResult<ShoppingListDto> GetById([FromRoute] int id)
         {
             var list = _listService.GetById(id);
@@ -50,6 +50,13 @@ namespace Web.Controllers
         {
             _listService.DeleteProduct(listId, productId);
             return NoContent();
+        }
+
+        [HttpPut("/{listId}/{userId}")]
+        public ActionResult ShareList([FromRoute]int listId, [FromRoute] int userId) 
+        {
+            _listService.ShareList(listId, userId);
+            return Ok();
         }
     }
 }
