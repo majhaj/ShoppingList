@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Data.Entities;
 using Data.Models;
-using Repository;
+using Repository.DbConfiguration;
+using System.Linq.Expressions;
 
 namespace Service
 {
@@ -20,16 +22,12 @@ namespace Service
 
         public int Create(CreateListDto dto)
         {
-            var list = _mapper.Map<ShoppingList>(dto);
-            var userId = _userContextService.GetUserId;
-            list.CreatorId = (int)userId;
-            var user = _dbContext.Users.FirstOrDefault(x => x.Id == userId);
-            
-            list.Users.Add(user);
+            var list = _mapper.Map<ProductsList>(dto);
+            //list.CreatorId = _userContextService.GetUserId;
 
-            user.ShoppingLists.Add(list);
+            //var history = _dbContext.Users.FirstOrDefault(x => x.Id == list.CreatorId).History;
 
-            _dbContext.ShoppingLists.Add(list);
+            _dbContext.Add(list);
 
             _dbContext.SaveChanges();
 
@@ -39,28 +37,19 @@ namespace Service
 
         public void Delete(int id)
         {
-            var list = _dbContext.ShoppingLists.FirstOrDefault(x => x.Id == id);
-            if(list == null)
-            {
-                throw new Exception($"List with id {id} doesn't exist.");
-            }
+            var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == id);
 
-            var userId = list.CreatorId;
-            var user = _dbContext.Users.FirstOrDefault(x => x.Id == userId);
-
-            user.ShoppingLists.Remove(list);
-
-            _dbContext.ShoppingLists.Remove(list);
+            _dbContext.ProductsLists.Remove(list);
 
             _dbContext.SaveChanges();
         }
 
         public void AddProductToList(ProductDto dto, int listId)
         {
-            var list = _dbContext.ShoppingLists.FirstOrDefault(x => x.Id == listId);
+            var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == listId);
             if(list == null)
             {
-                throw new Exception($"List with id {listId} doesn't exist.");
+                throw new Exception();
             }
 
             var product = _mapper.Map<Product>(dto);
@@ -73,50 +62,31 @@ namespace Service
 
         public void DeleteProduct(int productId, int listId)
         {
-            var list = _dbContext.ShoppingLists.FirstOrDefault(x => x.Id == listId);
+            var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == listId);
             if(list ==null)
             {
-                throw new Exception($"List with id {listId} doesn't exist.");
+                throw new Exception();
             }
 
             var item = list.Products.FirstOrDefault(x => x.Id == productId);
             if(item == null)
             {
-                throw new Exception($"Product with id {productId} is not on the list with id {listId}.");
+                throw new Exception();
             }
 
             list.Products.Remove(item);
         }
 
-        public ShoppingListDto GetById(int id)
+        public ProductsListDto GetById(int id)
         {
-            var list = _dbContext.ShoppingLists.FirstOrDefault(x => x.Id == id);
+            var list = _dbContext.ProductsLists.FirstOrDefault(x => x.Id == id);
             if(list == null)
             {
-                throw new Exception($"List with id {id} doesn't exist.");
+                throw new Exception();
             }
 
-            var result = _mapper.Map<ShoppingListDto>(list);
+            var result = _mapper.Map<ProductsListDto>(list);
             return result;
-        }
-
-        public void ShareList(int listId, int userId)
-        {
-            var list = _dbContext.ShoppingLists.FirstOrDefault(x =>x.Id == listId);
-            if(list == null)
-            {
-                throw new Exception($"List with id {listId} doesn't exist.");
-            }
-
-            var user = _dbContext.Users.FirstOrDefault(x => x.Id == userId);
-            if(user == null)
-            {
-                throw new Exception($"User with id {userId} doesn't exist.");
-            }
-
-            user.ShoppingLists.Add(list);
-
-            _dbContext.SaveChanges();
         }
     }
 }

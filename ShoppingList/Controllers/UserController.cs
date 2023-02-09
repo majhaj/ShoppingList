@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Service;
 
-namespace Web.Controllers
+namespace ShoppingList.Controllers
 {
     [ApiController]
     [Route("api/user/")]

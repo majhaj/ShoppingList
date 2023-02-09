@@ -1,4 +1,4 @@
-using Repository;
+using Repository.DbConfiguration;
 using Service;
 using System.Reflection;
 
@@ -22,8 +22,6 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-app.UseHttpsRedirection();
-
 app.UseSwagger();
 app.UseSwaggerUI(c => 
 { 
@@ -32,7 +30,7 @@ app.UseSwaggerUI(c =>
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseHttpsRedirection();
 
 app.UseEndpoints(endpoints =>
 {

@@ -8,7 +8,7 @@
         public DateTime Birthday { get; set; }
         public string Email { get; set; }
 
-        public List<ShoppingList> ShoppingLists { get; set; }
+        public List<ProductsList> AllShoppingLists { get; set; }
         public List<Product> History { get; set; }
 
     }

@@ -1,7 +1,13 @@
 ﻿using AutoMapper;
 using Data.Entities;
 using Data.Models;
-using Repository;
+using Microsoft.EntityFrameworkCore;
+using Repository.DbConfiguration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Service
 {
@@ -28,7 +34,7 @@ namespace Service
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
             if (user == null)
             {
-                throw new Exception($"User with id {id} doesn't exist.");
+                throw new Exception();
             }
 
             _dbContext.Users.Remove(user);
@@ -40,7 +46,7 @@ namespace Service
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
             if(user == null)
             {
-                throw new Exception($"User with id {id} doesn't exist.");
+                throw new Exception();
             }
 
             var userDto = _mapper.Map<UserDto>(user);
@@ -52,7 +58,7 @@ namespace Service
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
             if (user == null)
             {
-                throw new Exception($"User with id {id} doesn't exist.");
+                throw new Exception();
             }
 
             user.FirstName = dto.FirstName;

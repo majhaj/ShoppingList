@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "ShoppingList\Web.csproj", "{67EDD9BD-15B8-47AC-B90B-45BC3B79969B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingList", "ShoppingList\ShoppingList.csproj", "{67EDD9BD-15B8-47AC-B90B-45BC3B79969B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{48673587-D154-4B11-B82C-D1376E2B66E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{48673587-D154-4B11-B82C-D1376E2B66E5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{3CD0C826-496A-4A6F-9A09-91EFE54E92CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{3CD0C826-496A-4A6F-9A09-91EFE54E92CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{1BDEA41D-7001-4710-993F-E71964DCB682}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{1BDEA41D-7001-4710-993F-E71964DCB682}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

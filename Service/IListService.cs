@@ -12,8 +12,7 @@ namespace Service
         int Create(CreateListDto dto);
         void Delete(int id);
         void AddProductToList(ProductDto dto, int listId);
-        ShoppingListDto GetById(int id);
+        ProductsListDto GetById(int id);
         void DeleteProduct(int productId, int listId);
-        void ShareList(int listId, int userId);
     }
 }
