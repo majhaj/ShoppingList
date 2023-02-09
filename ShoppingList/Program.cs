@@ -1,11 +1,6 @@
-<<<<<<< Updated upstream
-using Repository.DbConfiguration;
-using Service;
-=======
 using Application.List;
 using Infrastructure;
 using Application;
->>>>>>> Stashed changes
 using System.Reflection;
 using Application.Account;
 using Application.Products;
@@ -33,8 +28,6 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-<<<<<<< Updated upstream
-=======
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
