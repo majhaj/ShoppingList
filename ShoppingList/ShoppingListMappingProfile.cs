@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Data.Entities;
-using Data.Models;
+using Domain.Entities;
+using Domain.Models;
 
-namespace Web
+namespace API
 {
     public class ShoppingListMappingProfile : Profile
     {
@@ -10,9 +10,10 @@ namespace Web
         {
             CreateMap<CreateListDto, ShoppingList>();
             CreateMap<ShoppingList, ShoppingListDto>();
-            CreateMap<ProductDto, Product>();
+            CreateMap<ItemDto, Item>();
             CreateMap<UserDto, User>();
             CreateMap<User, UserDto>();
+            CreateMap<ProductDto, Product>();
         }
     }
 }

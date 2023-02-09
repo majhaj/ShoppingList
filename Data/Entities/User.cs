@@ -1,4 +1,4 @@
-﻿namespace Data.Entities
+﻿namespace Domain.Entities
 {
     public class User
     {
@@ -8,8 +8,8 @@
         public DateTime Birthday { get; set; }
         public string Email { get; set; }
 
-        public List<ShoppingList> ShoppingLists { get; set; }
-        public List<Product> History { get; set; }
+        public List<UserShoppingList> ShoppingLists { get; set; }
+        public List<Item> History { get; set; }
 
     }
 }

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Repository.Migrations
+namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class UserShoppingListAdded : Migration

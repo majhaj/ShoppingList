@@ -1,10 +1,10 @@
-﻿using Data.Entities;
+﻿using Domain.Entities;
 
-namespace Data.Models
+namespace Domain.Models
 {
     public class ShoppingListDto
     {
         public string Name { get; set; }
-        public List<Product> Products { get; set; }
+        public List<Item> Items { get; set; }
     }
 }

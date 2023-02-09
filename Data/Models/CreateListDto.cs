@@ -1,6 +1,6 @@
-﻿using Data.Entities;
+﻿using Domain.Entities;
 
-namespace Data.Models
+namespace Domain.Models
 {
     public class CreateListDto
     {

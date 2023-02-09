@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Repository.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ShoppingListDbContext))]
     [Migration("20230112120634_Init")]
