@@ -7,9 +7,7 @@ namespace Data.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public Category Category { get; set; } = Category.Others;
-        public User Creator { get; set; }
-        public int CreatorId { get; set; }
 
-        public List<ProductsList> ProductsLists { get; set; }
+        public List<ShoppingList> ShoppingLists { get; set; }
     }
 }

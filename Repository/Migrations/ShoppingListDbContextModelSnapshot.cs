@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Repository.DbConfiguration;
+using Repository;
 
 #nullable disable
 
@@ -33,22 +33,22 @@ namespace Repository.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatorId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Data.Entities.ProductsList", b =>
+            modelBuilder.Entity("Data.Entities.ShoppingList", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,9 +56,6 @@ namespace Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CreatorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -66,24 +63,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatorId");
-
-                    b.ToTable("ProductsLists");
-                });
-
-            modelBuilder.Entity("Data.Entities.ProductsListProducts", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsListId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductId", "ProductsListId");
-
-                    b.HasIndex("ProductsListId");
-
-                    b.ToTable("ProductsListProducts");
+                    b.ToTable("ShoppingLists");
                 });
 
             modelBuilder.Entity("Data.Entities.User", b =>
@@ -116,49 +96,79 @@ namespace Repository.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Data.Entities.UserShoppingList", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingListId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "ShoppingListId");
+
+                    b.HasIndex("ShoppingListId");
+
+                    b.ToTable("UserShoppingLists");
+                });
+
+            modelBuilder.Entity("ProductShoppingList", b =>
+                {
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingListsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductsId", "ShoppingListsId");
+
+                    b.HasIndex("ShoppingListsId");
+
+                    b.ToTable("ProductShoppingList");
+                });
+
             modelBuilder.Entity("Data.Entities.Product", b =>
                 {
-                    b.HasOne("Data.Entities.User", "Creator")
+                    b.HasOne("Data.Entities.User", null)
                         .WithMany("History")
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creator");
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Data.Entities.ProductsList", b =>
+            modelBuilder.Entity("Data.Entities.UserShoppingList", b =>
                 {
-                    b.HasOne("Data.Entities.User", "Creator")
-                        .WithMany("AllShoppingLists")
-                        .HasForeignKey("CreatorId");
+                    b.HasOne("Data.Entities.ShoppingList", "ShoppingList")
+                        .WithMany()
+                        .HasForeignKey("ShoppingListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Creator");
+                    b.HasOne("Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ShoppingList");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Data.Entities.ProductsListProducts", b =>
+            modelBuilder.Entity("ProductShoppingList", b =>
                 {
-                    b.HasOne("Data.Entities.Product", "Product")
+                    b.HasOne("Data.Entities.Product", null)
                         .WithMany()
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Data.Entities.ProductsList", "ProductsList")
+                    b.HasOne("Data.Entities.ShoppingList", null)
                         .WithMany()
-                        .HasForeignKey("ProductsListId")
+                        .HasForeignKey("ShoppingListsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("ProductsList");
                 });
 
             modelBuilder.Entity("Data.Entities.User", b =>
                 {
-                    b.Navigation("AllShoppingLists");
-
                     b.Navigation("History");
                 });
 #pragma warning restore 612, 618

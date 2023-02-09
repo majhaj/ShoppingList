@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Service;
 
 
-namespace ShoppingList.Controllers
+namespace Web.Controllers
 {
     [ApiController]
     [Route("api/list/")]
@@ -16,8 +16,8 @@ namespace ShoppingList.Controllers
             _listService = listService;
         }
 
-        [HttpGet]
-        public ActionResult<ProductsListDto> GetById([FromRoute] int id)
+        [HttpGet("/{id}")]
+        public ActionResult<ShoppingListDto> GetById([FromRoute] int id)
         {
             var list = _listService.GetById(id);
             return Ok(list);
@@ -50,6 +50,13 @@ namespace ShoppingList.Controllers
         {
             _listService.DeleteProduct(listId, productId);
             return NoContent();
+        }
+
+        [HttpPut("/{listId}/{userId}")]
+        public ActionResult ShareList([FromRoute]int listId, [FromRoute] int userId) 
+        {
+            _listService.ShareList(listId, userId);
+            return Ok();
         }
     }
 }
