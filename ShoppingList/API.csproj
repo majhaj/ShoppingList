@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj" />
-    <ProjectReference Include="..\Repository\Repository.csproj" />
-    <ProjectReference Include="..\Service\Service.csproj" />
+    <ProjectReference Include="..\Data\Domain.csproj" />
+    <ProjectReference Include="..\Repository\Infrastructure.csproj" />
+    <ProjectReference Include="..\Service\Application.csproj" />
   </ItemGroup>
 
 </Project>

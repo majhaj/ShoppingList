@@ -1,45 +1,45 @@
-﻿using Data.Models;
+﻿using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using Service;
+using Application.Account;
 
-namespace Web.Controllers
+namespace API.Controllers
 {
     [ApiController]
-    [Route("api/user/")]
-    public class UserController : Controller
+    [Route("api/user")]
+    public class AccountController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
 
-        public UserController(IUserService userService)
+        public AccountController(IAccountService userService)
         {
-            _userService = userService;
+            _accountService = userService;
         }
 
         [HttpGet("{id}")]
         public ActionResult<UserDto> GetUserById([FromRoute]int id)
         {
-           var user = _userService.GetUserById(id);
+           var user = _accountService.GetUserById(id);
             return Ok(user);
         }
 
         [HttpPost]
         public ActionResult CreateUser([FromBody]UserDto dto)
         {
-            var id = _userService.CreateUser(dto);
+            var id = _accountService.CreateUser(dto);
             return Created($"api/user/{id}", null);
         }
 
         [HttpDelete("{id}")]
         public ActionResult DeleteUser([FromRoute]int id)
         {
-            _userService.DeleteUser(id);
+            _accountService.DeleteUser(id);
             return NoContent();
         }
 
         [HttpPost("{id}")]
         public ActionResult UpdateUser([FromRoute] int id, [FromBody]UserDto dto)
         {
-            _userService.UpdateUser(id, dto);
+            _accountService.UpdateUser(id, dto);
             return Ok();
         }
     }

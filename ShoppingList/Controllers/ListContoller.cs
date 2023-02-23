@@ -1,12 +1,13 @@
-﻿using Data.Models;
+﻿using Application.List;
+using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Service;
 
 
-namespace Web.Controllers
+namespace API.Controllers
 {
     [ApiController]
-    [Route("api/list/")]
+    [Route("api/list")]
     public class ListContoller : Controller
     {
         private readonly IListService _listService;
@@ -19,44 +20,45 @@ namespace Web.Controllers
         [HttpGet("/{id}")]
         public ActionResult<ShoppingListDto> GetById([FromRoute] int id)
         {
-            var list = _listService.GetById(id);
+            var list = _listService.GetListById(id);
             return Ok(list);
         }
 
         [HttpPost]
-        public ActionResult CreateList([FromBody]CreateListDto dto)
+        public ActionResult CreateList([FromBody] CreateListDto dto)
         {
-            var id = _listService.Create(dto);
+            var id = _listService.CreateList(dto);
             return Created($"api/list/{id}", null);
         }
 
         [HttpDelete("{listId}")]
-        public ActionResult DeleteList([FromRoute]int listId)
+        public ActionResult DeleteList([FromRoute] int listId)
         {
-            _listService.Delete(listId);
+            _listService.DeleteList(listId);
 
             return NoContent();
         }
 
         [HttpPost("{listId}")]
-        public ActionResult AddProductToList([FromBody]ProductDto dto, [FromRoute]int listId)
+        public ActionResult AddItemToList([FromBody] ItemDto dto, [FromRoute] int listId)
         {
-            _listService.AddProductToList(dto, listId);
+            _listService.AddItemToList(dto, listId);
             return Ok();
         }
 
         [HttpDelete("/{listId}/{productId}")]
-        public ActionResult DeleteProduct([FromRoute]int listId, [FromRoute] int productId)
+        public ActionResult DeleteItem([FromRoute] int listId, [FromRoute] int productId)
         {
-            _listService.DeleteProduct(listId, productId);
+            _listService.DeleteItem(listId, productId);
             return NoContent();
         }
 
         [HttpPut("/{listId}/{userId}")]
-        public ActionResult ShareList([FromRoute]int listId, [FromRoute] int userId) 
+        public ActionResult ShareList([FromRoute] int listId, [FromRoute] int userId)
         {
             _listService.ShareList(listId, userId);
             return Ok();
         }
+
     }
 }

@@ -10,15 +10,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
-    public class ShoppingListConfiguration : IEntityTypeConfiguration<ShoppingList>
+    internal class ItemConfiguration : IEntityTypeConfiguration<Item>
     {
-        public void Configure(EntityTypeBuilder<ShoppingList> builder)
+        public void Configure(EntityTypeBuilder<Item> builder)
         {
-
-            builder.Property(pl => pl.Name).IsRequired().HasMaxLength(30);
-
-            builder.HasMany(x => x.Items);
-
+            builder.HasOne(i => i.Product)
+                .WithMany()
+                .HasForeignKey(i => i.ProductId);
         }
     }
 }

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using Data.Entities;
+using Domain.Entities;
 
-namespace Service
+namespace Application
 {
     public class UserContextService : IUserContextService
     {

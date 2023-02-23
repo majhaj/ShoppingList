@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Repository;
+using Infrastructure;
 
 #nullable disable
 
-namespace Repository.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ShoppingListDbContext))]
     partial class ShoppingListDbContextModelSnapshot : ModelSnapshot

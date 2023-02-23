@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Data.Entities;
-using Repository.Configuration;
+using Domain.Entities;
+using Infrastructure.Configuration;
 
-namespace Repository
+namespace Infrastructure
 {
     public class ShoppingListDbContext : DbContext
     {
@@ -10,15 +10,17 @@ namespace Repository
 
         public DbSet<User> Users { get; set; }
         public DbSet<ShoppingList> ShoppingLists { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Item> Items { get; set; }
         public DbSet<UserShoppingList> UserShoppingLists { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new ShoppingListConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemConfiguration());
             modelBuilder.ApplyConfiguration(new UserShoppingListConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

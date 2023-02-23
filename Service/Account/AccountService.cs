@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
-using Data.Entities;
-using Data.Models;
-using Repository;
+using Domain.Entities;
+using Domain.Exceptions;
+using Domain.Models;
+using Infrastructure;
 
-namespace Service
+namespace Application.Account
 {
-    public class UserService : IUserService
+    public class AccountService : IAccountService
     {
         private readonly ShoppingListDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public UserService(ShoppingListDbContext dbContext, IMapper mapper)
+        public AccountService(ShoppingListDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -28,7 +29,7 @@ namespace Service
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
             if (user == null)
             {
-                throw new Exception($"User with id {id} doesn't exist.");
+                throw new NotFoundException($"User with id {id} doesn't exist.");
             }
 
             _dbContext.Users.Remove(user);
@@ -38,9 +39,9 @@ namespace Service
         public UserDto GetUserById(int id)
         {
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
-            if(user == null)
+            if (user == null)
             {
-                throw new Exception($"User with id {id} doesn't exist.");
+                throw new NotFoundException($"User with id {id} doesn't exist.");
             }
 
             var userDto = _mapper.Map<UserDto>(user);
@@ -52,14 +53,14 @@ namespace Service
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
             if (user == null)
             {
-                throw new Exception($"User with id {id} doesn't exist.");
+                throw new NotFoundException($"User with id {id} doesn't exist.");
             }
 
             user.FirstName = dto.FirstName;
             user.LastName = dto.LastName;
             user.Birthday = dto.Birthday;
             user.Email = dto.Email;
-            
+
             _dbContext.SaveChanges();
         }
     }

@@ -1,13 +1,17 @@
-﻿using Data.Enums;
+﻿using Domain.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Data.Entities
+namespace Domain.Entities
 {
     public class Product
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public Category Category { get; set; } = Category.Others;
-
-        public List<ShoppingList> ShoppingLists { get; set; }
+        public string? MeasureUnit { get; set; }
     }
 }
