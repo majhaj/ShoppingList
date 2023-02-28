@@ -22,7 +22,7 @@ namespace Application.Products
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public void AddProduct(ProductDto dto)
+        public int AddProduct(ProductDto dto)
         {
             var product = _mapper.Map<Product>(dto);
 
@@ -33,6 +33,7 @@ namespace Application.Products
 
             _dbContext.Products.Add(product);
             _dbContext.SaveChanges();
+            return product.Id;
         }
 
         public void DeleteProduct(int productId)

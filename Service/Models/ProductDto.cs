@@ -12,5 +12,6 @@ namespace Application.Models
         public string? Name { get; set; }
         public Category Category { get; set; } = Category.Others;
         public string? MeasureUnit { get; set; }
+        public string? NutritionGrade { get; set; }
     }
 }

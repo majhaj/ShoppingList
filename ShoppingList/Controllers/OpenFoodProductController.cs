@@ -1,4 +1,5 @@
-﻿using Application.OpenFoodProducts;
+﻿using Application.Models;
+using Application.OpenFoodProducts;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using RestEase;
@@ -16,8 +17,8 @@ namespace API.Controllers
             _apiClient = RestClient.For<IOpenFoodProductService>("https://majhaj:123maja@world.openfoodfacts.net");
         }
 
-        [HttpGet("")]
-        public ActionResult<OpenFoodFactsProduct> Get(string barcode)
+        [HttpGet("/{barcode}")]
+        public ActionResult<OpenFoodFactsProduct> Get([FromRoute]string barcode)
         {
             var product = _apiClient.GetProductAsync(barcode).Result;
             return Ok(product);
@@ -46,6 +47,13 @@ namespace API.Controllers
                ).Result;
 
             return Ok(result);
+        }
+
+        [HttpPost("/{barcode}")]
+        public ActionResult SaveProduct([FromRoute] string barcode)
+        {
+            _apiClient.SaveProductAsync(barcode);
+            return Ok();
         }
 
     }

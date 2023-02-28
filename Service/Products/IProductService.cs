@@ -10,7 +10,7 @@ namespace Application.Products
     public interface IProductService
     {
         void UpdateProduct(int productId, ProductDto dto);
-        void AddProduct(ProductDto dto);
+        int AddProduct(ProductDto dto);
         void DeleteProduct(int productId);
     }
 }

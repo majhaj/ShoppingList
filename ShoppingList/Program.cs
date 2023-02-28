@@ -14,6 +14,9 @@ using FluentValidation.AspNetCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using NLog.Web;
+using Application.OpenFoodProducts;
+using RestEase;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,9 +56,7 @@ builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IValidator<CreateUserDto>, CreateUserDtoValidator>();
 
-//builder.Services.AddRestEase(Configuration)
-//    .AddClient<IOpenFoodProductService>("of-products-service");
-
+builder.Services.AddSingleton(RestClient.For<IOpenFoodProductService>("https://off:off@world.openfoodfacts.net"));
 
 builder.Services.AddHttpContextAccessor();
 

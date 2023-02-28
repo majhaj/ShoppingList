@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Models;
+using Domain.Entities;
 using RestEase;
 using System;
 using System.Collections.Generic;
@@ -32,20 +33,9 @@ namespace Application.OpenFoodProducts
 
         );
 
-    }
-
-    public class OpenFoodFactsProduct
-    {
-        public string Status { get; set; }
-        public OpenFoodFactsProductData Product { get; set; }
-    }
-
-    public class OpenFoodFactsProductData
-    {
-        public string Code { get; set; }
-        public string ProductName { get; set; }
-        public string ImageUrl { get; set; }
-        public string NutritionGrade { get; set; }
+        [Post("api/v2/product/{barcode}")]
+        Task SaveProductAsync([Path] string barcode);
 
     }
+
 }

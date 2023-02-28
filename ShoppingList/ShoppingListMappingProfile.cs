@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Application.Models;
+using Application.OpenFoodProducts;
 
 namespace API
 {
@@ -14,6 +15,7 @@ namespace API
             CreateMap<CreateUserDto, User>();
             CreateMap<User, UserDto>();
             CreateMap<ProductDto, Product>();
+            CreateMap<OpenFoodFactsProduct, ProductDto>();
         }
     }
 }

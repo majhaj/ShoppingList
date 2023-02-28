@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace Application.Models
 {
-    internal class OpenFoodFactProduct
+    public class OpenFoodFactsProduct
     {
+        public string Status { get; set; }
+        public OpenFoodFactsProductData Product { get; set; }
+    }
+
+    public class OpenFoodFactsProductData
+    {
+        public string Code { get; set; }
+        public string ProductName { get; set; }
+        public string NutritionGrade { get; set; }
+
     }
 }
