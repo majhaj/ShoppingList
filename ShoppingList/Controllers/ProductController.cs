@@ -1,5 +1,5 @@
-﻿using Application.Products;
-using Domain.Models;
+﻿using Application.Models;
+using Application.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

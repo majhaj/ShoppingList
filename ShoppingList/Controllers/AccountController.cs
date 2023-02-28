@@ -1,4 +1,4 @@
-﻿using Domain.Models;
+﻿using Application.Models;
 using Microsoft.AspNetCore.Mvc;
 using Application.Account;
 
@@ -16,14 +16,14 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<UserDto> GetUserById([FromRoute]int id)
+        public ActionResult<CreateUserDto> GetUserById([FromRoute]int id)
         {
            var user = _accountService.GetUserById(id);
             return Ok(user);
         }
 
-        [HttpPost]
-        public ActionResult CreateUser([FromBody]UserDto dto)
+        [HttpPost("register")]
+        public ActionResult RegisterUser([FromBody]CreateUserDto dto)
         {
             var id = _accountService.CreateUser(dto);
             return Created($"api/user/{id}", null);
@@ -37,10 +37,17 @@ namespace API.Controllers
         }
 
         [HttpPost("{id}")]
-        public ActionResult UpdateUser([FromRoute] int id, [FromBody]UserDto dto)
+        public ActionResult UpdateUser([FromRoute] int id, [FromBody]CreateUserDto dto)
         {
             _accountService.UpdateUser(id, dto);
             return Ok();
+        }
+
+        [HttpPost("login")]
+        public ActionResult Login([FromBody]LoginDto dto)
+        {
+            string token = _accountService.GenerateJwtToken(dto);
+            return Ok(token);
         }
     }
 }

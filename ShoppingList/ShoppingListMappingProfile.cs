@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Entities;
-using Domain.Models;
+using Application.Models;
 
 namespace API
 {
@@ -11,7 +11,7 @@ namespace API
             CreateMap<CreateListDto, ShoppingList>();
             CreateMap<ShoppingList, ShoppingListDto>();
             CreateMap<ItemDto, Item>();
-            CreateMap<UserDto, User>();
+            CreateMap<CreateUserDto, User>();
             CreateMap<User, UserDto>();
             CreateMap<ProductDto, Product>();
         }

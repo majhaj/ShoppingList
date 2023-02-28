@@ -1,5 +1,5 @@
 ﻿using Application.List;
-using Domain.Models;
+using Application.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +8,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/list")]
+    [Authorize]
     public class ListContoller : Controller
     {
         private readonly IListService _listService;
@@ -17,6 +18,7 @@ namespace API.Controllers
             _listService = listService;
         }
 
+  
         [HttpGet("/{id}")]
         public ActionResult<ShoppingListDto> GetById([FromRoute] int id)
         {
