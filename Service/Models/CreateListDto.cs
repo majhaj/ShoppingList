@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 
-namespace Domain.Models
+namespace Application.Models
 {
     public class CreateListDto
     {

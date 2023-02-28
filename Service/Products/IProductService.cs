@@ -1,4 +1,4 @@
-﻿using Domain.Models;
+﻿using Application.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +9,8 @@ namespace Application.Products
 {
     public interface IProductService
     {
-        void UpdateProduct(int productId, Domain.Models.ProductDto dto);
-        void AddProduct(Domain.Models.ProductDto dto);
+        void UpdateProduct(int productId, ProductDto dto);
+        int AddProduct(ProductDto dto);
         void DeleteProduct(int productId);
     }
 }

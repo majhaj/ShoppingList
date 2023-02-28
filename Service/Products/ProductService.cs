@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+﻿using Application.Models;
+using AutoMapper;
 using Domain.Entities;
-using Domain.Models;
+using Domain.Exceptions;
 using Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,11 +22,18 @@ namespace Application.Products
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public void AddProduct(ProductDto dto)
+        public int AddProduct(ProductDto dto)
         {
             var product = _mapper.Map<Product>(dto);
+
+            if(_dbContext.Products.Any(x => x.Name == product.Name))
+            {
+                throw new DuplicateNameException(product.Name);
+            }
+
             _dbContext.Products.Add(product);
             _dbContext.SaveChanges();
+            return product.Id;
         }
 
         public void DeleteProduct(int productId)
@@ -32,7 +41,7 @@ namespace Application.Products
             var product = _dbContext.Products.FirstOrDefault(x => x.Id == productId);
             if(product == null)
             {
-                throw new Exception();
+                throw new ProductNotFoundException(productId);
             }
             _dbContext.Products.Remove(product);
             _dbContext.SaveChanges();
@@ -44,7 +53,7 @@ namespace Application.Products
             var product = _dbContext.Products.FirstOrDefault(x => x.Id == productId);
             if (product == null)
             {
-                throw new Exception();
+                throw new ProductNotFoundException(productId);
             }
 
             product.MeasureUnit = dto.MeasureUnit;
